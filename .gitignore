@@ -1,0 +1,5 @@
+.gradle
+build
+
+# For development on machines where .idea is not ignored
+.idea
