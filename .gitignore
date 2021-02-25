@@ -1,5 +1,8 @@
 .gradle
 build
 
+# ignore hashcode output folder (with sources zip and output files)
+outputs
+
 # For development on machines where .idea is not ignored
 .idea
