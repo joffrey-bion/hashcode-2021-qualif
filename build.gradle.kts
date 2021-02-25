@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.4.30"
     application
+    id("org.hildan.hashcode-submit") version "1.0.0"
 }
 
 group = "org.hildan.hashcode"
