@@ -11,49 +11,52 @@ fun main(args: Array<String>) = runBlocking {
 }
 
 data class Problem(
-    val n2PTeams: Int,
-    val n3PTeams: Int,
-    val n4PTeams: Int,
-    val pizzas: List<Pizza>,
+    val duration: Int,
+    val nIntersections: Int,
+    val nStreets: Int,
+    val nCars: Int,
+    val nPoints: Int,
+    val streets: List<Street>,
+    val cars: List<Car>,
 ) {
-    @OptIn(ExperimentalStdlibApi::class)
     fun solve(): List<String> {
-        val nPizzas = pizzas.size
-        val iter = pizzas.sortedByDescending { it.ingredients.size }.iterator()
-        val n2POrders = n2PTeams.coerceAtMost(nPizzas / 2)
-        val n3POrders = n3PTeams.coerceAtMost((nPizzas - n2POrders * 2) / 3)
-        val n4POrders = n2PTeams.coerceAtMost((nPizzas - n2POrders * 2 - n3POrders * 3) / 4)
-        val orders = buildList {
-            repeat(n2POrders) {
-                add("2 ${iter.next().id} ${iter.next().id}")
-            }
-            repeat(n3POrders) {
-                add("3 ${iter.next().id} ${iter.next().id} ${iter.next().id}")
-            }
-            repeat(n4POrders) {
-                add("4 ${iter.next().id} ${iter.next().id} ${iter.next().id} ${iter.next().id}")
-            }
-        }
-        return listOf(orders.size.toString()) + orders
+        return emptyList()
     }
 }
 
-data class Pizza(
-    val id: Int,
-    val ingredients: Set<String>,
+data class Street(
+    val start: Int,
+    val end: Int,
+    val name: String,
+    val length: Int,
+)
+
+data class Car(
+    val nStreets: Int,
+    val streets: List<String>,
 )
 
 fun HCReader.readProblem(): Problem {
-    val nPizzas = readInt()
-    val n2PTeams = readInt()
-    val n3PTeams = readInt()
-    val n4PTeams = readInt()
-    val pizzas = List(nPizzas) { readPizza(it) }
-    return Problem(n2PTeams, n3PTeams, n4PTeams, pizzas)
+    val duration = readInt()
+    val nIntersections = readInt()
+    val nStreets = readInt()
+    val nCars = readInt()
+    val nPoints = readInt()
+    val streets = List(nStreets) { readStreet() }
+    val cars = List(nCars) { readCar() }
+    return Problem(duration, nIntersections, nStreets, nCars, nPoints, streets, cars)
 }
 
-fun HCReader.readPizza(index: Int): Pizza {
-    val nIngredients = readInt()
-    val ingredients = List(nIngredients) { readString() }.toSet()
-    return Pizza(index, ingredients)
+fun HCReader.readStreet(): Street {
+    val start = readInt()
+    val end = readInt()
+    val name = readString()
+    val timeToCross = readInt()
+    return Street(start, end, name, timeToCross)
+}
+
+fun HCReader.readCar(): Car {
+    val nStreets = readInt()
+    val streets = List(nStreets) { readString() }
+    return Car(nStreets, streets)
 }
