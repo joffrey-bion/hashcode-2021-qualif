@@ -13,7 +13,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
-    implementation("org.hildan.hashcode:hashcode-utils-kt:1.1.0")
+    implementation("org.hildan.hashcode:hashcode-utils-kt:1.1.1")
 }
 
 application {
